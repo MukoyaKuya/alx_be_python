@@ -4,21 +4,26 @@ import unittest
 from simple_calculator import SimpleCalculator
 
 class TestSimpleCalculator(unittest.TestCase):
-    def test_deposit(self):
-        calc = SimpleCalculator()
-        calc.deposit(100)
-        self.assertEqual(calc.display_balance(), "Current Balance: $100.00")
+    def setUp(self):
+        self.calc = SimpleCalculator()
 
-    def test_withdraw(self):
-        calc = SimpleCalculator()
-        calc.deposit(200)
-        calc.withdraw(50)
-        self.assertEqual(calc.display_balance(), "Current Balance: $150.00")
+    def test_addition(self):
+        self.assertEqual(self.calc.add(2, 3), 5)
+        self.assertEqual(self.calc.add(-1, -1), -2)
 
-    def test_display_balance_format(self):
-        calc = SimpleCalculator()
-        calc.deposit(250)
-        self.assertEqual(calc.display_balance(), "Current Balance: $250.00")
+    def test_subtraction(self):
+        self.assertEqual(self.calc.subtract(10, 5), 5)
+        self.assertEqual(self.calc.subtract(0, 5), -5)
 
-if __name__ == "__main__":
+    def test_multiply(self):
+        self.assertEqual(self.calc.multiply(4, 5), 20)
+        self.assertEqual(self.calc.multiply(-2, 3), -6)
+
+    def test_divide(self):
+        self.assertEqual(self.calc.divide(10, 2), 5)
+        self.assertEqual(self.calc.divide(-6, 3), -2)
+        with self.assertRaises(ZeroDivisionError):
+            self.calc.divide(5, 0)
+
+if __name__ == '__main__':
     unittest.main()
